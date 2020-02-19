@@ -27,13 +27,18 @@ DEPLOY!
 // 5. Morgan (for tracking any HTTP requests coming into endpoints)
 // 6. learned how to set up an .ENV file and be able to require it bey using app.use and the require("dotenv").config(); command line
 // 7. Added a body parser for express
-
+// 8. Used react-map-gl alongside ReactMapGL component schema to fill in correct properties
+// 9. Learned how to use API token key for Mapbox
+// 10. Used React Hooks in order to maintain state (useState) property
 
 // Learned More React
+// 1. When first starting react using npx create-react-app client, you can safely delete the following:
+// a. index.css(\*delete only the code class. Leave the body reset alone) / b. app.css / logo.svg / serviceworker.js / index.js (delete bit about
+// service worker)
 
 // Learned More Node.Js/Express
 // 1. Got the get and post endpoints to be able to communicate via using POSTMAN
-// 2. Confirmed that database from LogEntry (entries schema) were being displayed  
+// 2. Confirmed that database from LogEntry (entries schema) were being displayed
 
 // Learned More MongoDB/Mongoose
 // 1. connected my mongoose to my current database URL, which is my localhost (for now)
