@@ -24,6 +24,7 @@
     "eslint-plugin-import": "^2.20.1",
     "mongoose": "^5.9.1",
     "mongoose-timestamp": "^0.6.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "win-node-env": "^0.4.0"
   }
 }

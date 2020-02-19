@@ -28,16 +28,15 @@ const middleware = ({
 } = require("./middleware/middleware.js"));
 
 // importing path to be used by express
-const path = require("path");
+// const path = require("path");
 
 // import a body parser to parse incoming JSON data
 // const bodyParse = require("body-parser");
+// initializes app with the express built-in functions
+const app = express();
 
 // importing our LOGS routers (everything related to entries)
 const logs = require("./api/logs.js");
-
-// initializes app with the express built-in functions
-const app = express();
 
 // connects MongoDB to the local environment
 mongoose.connect("mongodb://localhost/travel-log", {
@@ -52,7 +51,7 @@ app.use(helmet());
 // sets our origin to localhost:3000 so that ONLY this endpoint can return back info
 app.use(
   cors({
-    origin: "process.env.CORS_ORIGIN"
+    origin: process.env.CORS_ORIGIN
   })
 );
 
@@ -72,14 +71,14 @@ Requests
 
 // GET to /
 // NOT a middleware. Just an immediate response to anybody going to localhost:1337
-app.get("/travel-log", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json(`To be built...Hold your horses, people.`);
 });
 
 // put log routes before middleware of errors
 // use "use" as the method and you can then define the route handler better on a different route file
 // this essentially tells the thread of execution to look for the router in "logs" (an imported/required object)
-app.use("/travel-log/api/logs", logs);
+app.use("/api/logs", logs);
 
 // posting information to the  travel-log/api/logs endpoint
 // app.post("api/logs", logs);
