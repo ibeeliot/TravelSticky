@@ -29,7 +29,7 @@ DEPLOY!
 // 7. Added a body parser for express
 // 8. Used react-map-gl alongside ReactMapGL component schema to fill in correct properties
 // 9. Learned how to use API token key for Mapbox
-// 10. Used React Hooks in order to maintain state (useState) property
+// 10. Used React Hooks in order to maintain state (useState) property & set<statevariable>
 // 11. Learned what a service worker does - helps cache with service worker behind the scene, but downfall is that cache is potentially hard to break (not used in source code but knows file and caches them behind the scenes)
 // 12. Used IIFE in order to work with react useEffect component
 
