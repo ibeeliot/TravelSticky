@@ -30,6 +30,9 @@ DEPLOY!
 // 8. Used react-map-gl alongside ReactMapGL component schema to fill in correct properties
 // 9. Learned how to use API token key for Mapbox
 // 10. Used React Hooks in order to maintain state (useState) property
+// 11. Learned what a service worker does - helps cache with service worker behind the scene, but downfall is that cache is potentially hard to break (not used in source code but knows file and caches them behind the scenes)
+// 12. 
+
 
 // Learned More React
 // 1. When first starting react using npx create-react-app client, you can safely delete the following:
@@ -42,3 +45,7 @@ DEPLOY!
 
 // Learned More MongoDB/Mongoose
 // 1. connected my mongoose to my current database URL, which is my localhost (for now)
+
+// STRETCH GOALS
+// 1. Play with ability to usestate on zoom for app component => useState{zoom: `${zoom._id}`}
+// 2. Be able to change various MAP styles using a ENV file that can hold your various maps
