@@ -49,3 +49,6 @@ DEPLOY!
 // 1. Play with ability to usestate on zoom for app component => useState{zoom: `${zoom._id}`}
 // 2. Be able to change various MAP styles using a ENV file that can hold your various maps
 // 3. Install webpack to work as a bundler
+// 4. Have user be able to CLOSE ALL pop-ups with button
+// 5. Have Google Street Map be able to feed entry.\_id longitude & latitude values and plug it into google street view => use your \$300 credit
+// 6.

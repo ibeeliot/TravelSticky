@@ -2,7 +2,7 @@
 // import React, { Component } from "react";
 // useState from React is like setState and
 import React, { useState, useEffect } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 // importing listLogEntries function we created
 import { listLogEntries } from "./API";
@@ -11,7 +11,9 @@ import { listLogEntries } from "./API";
 // the parameters are from the components
 const App = () => {
   // react Hook destructuring as arrays. Use this syntax in order to destructure react components correctly
+  // react Hook just has two components, a property and a function that sets that property's state
   const [logEntries, setLogEntries] = useState([]);
+  const [showPopup, setShowPopup] = useState({});
   const [viewport, setViewport] = useState({
     // this state essentially helps render the "props" to be used later
     width: "100vw",
@@ -19,7 +21,7 @@ const App = () => {
     latitude: 39.8282,
     longitude: -98.5795,
     // zoom level => higher number equal closer zoom
-    zoom: 3
+    zoom: 4
   });
 
   // we'll use react hooks component useEffect only once
@@ -40,6 +42,8 @@ const App = () => {
   // mapStyle is a property linked to ReactMapGL
   // when returning the body of the react component, be sure to include the entry(whatever you it read as input)
   // we're returning a Marker component and inside of that marker component, we're placing a svg inside
+  // you can do CSS calculations (but remember that in JSX, you have to do double {} for css properties in direct style)
+  // REMEMBER that react only renders one div element, so multiple components need to be wrapped inside a main div component
   return (
     <ReactMapGL
       {...viewport}
@@ -48,28 +52,57 @@ const App = () => {
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
       {logEntries.map(entry => (
-        <Marker
-          key={entry._id}
-          latitude={parseInt(entry.latitude)}
-          longitude={parseInt(entry.longitude)}
-          offsetLeft={-20}
-          offsetTop={-10}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            width="100"
-            height="100"
-            stroke="#FF5733"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="css-i6dzq1"
+        <div>
+          <Marker
+            key={entry._id}
+            latitude={Number(entry.latitude)}
+            longitude={Number(entry.longitude)}
+
+            // offsetLeft={-12}
+            // offsetTop={-24}
           >
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </Marker>
+            <svg
+              className="marker"
+              viewBox="0 0 24 24"
+              style={{
+                width: `${8 * viewport.zoom}`,
+                height: `${8 * viewport.zoom}`
+              }}
+              stroke="#0000ff"
+              strokeWidth="2.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              onClick={() =>
+                // this will turn ALL showPopup instances (with their entry IDs) all to true
+                setShowPopup({
+                  ...showPopup,
+                  [entry._id]: true
+                })
+              }
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </Marker>
+          {showPopup[entry._id] ? (
+            <Popup
+              latitude={Number(entry.latitude)}
+              longitude={Number(entry.longitude)}
+              closeButton={true}
+              closeOnClick={true}
+              onClose={() => setShowPopup({ ...showPopup, [entry._id]: false })}
+              anchor="top"
+            >
+              <div className="popup">
+                <h3>
+                  {entry.title}
+                  <p>{entry.comments}</p>
+                </h3>
+              </div>
+            </Popup>
+          ) : null}
+        </div>
       ))}
     </ReactMapGL>
   );
