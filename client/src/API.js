@@ -5,6 +5,7 @@ const API_URL = "http://localhost:1337";
 // this will fetch all logs of entries we have via the route /api/logs which we set up as the same route in our server
 export async function listLogEntries() {
   const response = await fetch(`${API_URL}/api/logs`);
+  console.log("This is all your log entries: ", "\n", response);
   return response.json();
 }
 

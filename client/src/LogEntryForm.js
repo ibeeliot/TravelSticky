@@ -37,6 +37,9 @@ const LogEntryForm = ({ location, onClose }) => {
       <input name="image" ref={register} />
       <label htmlFor="visitDate">Visit Date</label>
       <input name="visitDate" type="date" ref={register} />
+      {/* ratings  */}
+      <label htmlFor="rating">Rate This</label>
+      <input name="rating" type=""></input>
       <button disabled={loading}>
         {loading ? "Loading...." : "Create Entry"}
       </button>

@@ -96,7 +96,7 @@ const App = () => {
               onClick={() =>
                 // this will turn ALL showPopup instances (with their entry IDs) all to true
                 setShowPopup({
-                  ...showPopup,
+                  showPopup,
                   [entry._id]: true
                 })
               }
@@ -113,7 +113,7 @@ const App = () => {
               closeButton={true}
               closeOnClick={true}
               dynamicPosition={true}
-              onClose={() => setShowPopup({ ...showPopup, [entry._id]: false })}
+              onClose={() => setShowPopup({ showPopup, [entry._id]: false })}
             >
               <div className="popup">
                 <h3>{entry.title}</h3>
@@ -121,12 +121,12 @@ const App = () => {
                 <p>
                   Visited On: {new Date(entry.visitDate).toLocaleDateString()}
                 </p>
+                {/* I'm saying if this entry image exists aka the user has provided a working
+                link, then go ahead and create an image tag that will have the properties
+                for you to be able to input as the src and alt values. You can do an inline-css
+                style as well but be sure to use double style={{}} syntax */}
                 {entry.image ? (
-                  <img
-                    src={entry.image}
-                    alt={entry.title}
-                    style={{ width: 200, height: 100 }}
-                  />
+                  <img src={entry.image} alt={entry.title} />
                 ) : null}
               </div>
             </Popup>
@@ -181,7 +181,7 @@ const App = () => {
                 onClose={() => {
                   // calls parent and sets location to null, which hides the form
                   // then gets all entries available
-                  setAddEntryLocation(null);
+                  setAddEntryLocation(null); 
                   getEntries();
                 }}
                 location={addEntryLocation}

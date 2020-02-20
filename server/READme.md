@@ -11,9 +11,9 @@ What data will we store?
 Create a new log entry
 [x] GET / logs
 List all log entries
-[] Setup Client
-[] Create Form to add a new entry
-[] Setup Map SDK on client
+[x] Setup Client
+[x] Create Form to add a new entry
+[x] Setup Map SDK on client
 [] List all log entries on map
 DEPLOY!
 
@@ -45,7 +45,9 @@ DEPLOY!
 // Learned More MongoDB/Mongoose
 // 1. connected my mongoose to my current database URL, which is my localhost (for now)
 
-// STRETCH GOALS
+// STRETCH GOALS  
+// 1. IMMEDIATELY be able to have a modal that pops up and saves my current list of directories
+// 1. Immediate GOALS to finish UPDATE / DELETE 
 // 1. Play with ability to usestate on zoom for app component => useState{zoom: `${zoom._id}`}
 // 2. Be able to change various MAP styles using a ENV file that can hold your various maps
 // 3. Install webpack to work as a bundler
