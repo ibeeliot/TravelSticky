@@ -7,15 +7,20 @@ body {
   width: 100vw;
   overflow: hidden;
 }
-/*this needs fixing*/
+
+.error {
+  color: #f05035;
+}
+
 .popup {
-  font-size: 2rem;
+  font-size: 1.5rem;
   max-width: 500px;
   border-radius: 20px;
+  padding: 1.5rem;
 }
 /*marker*/
 .marker {
-  transform: translate(-50%, -100%);
+  transform: translate(-90%, -20%);
 }
 
 .mapboxgl-popup {
@@ -25,10 +30,11 @@ body {
 
 .entry-form label,
 .entry-form input,
-.entry-form textarea {
-  margin: 0.5rem 0;
-  display: flex;
+.entry-form textarea,
+.entry-form button {
+  margin: 0.75rem 0;
+  display: block;
   width: 100%;
-  font-size: 2rem;
+  font-size: 1.5rem;
   border-radius: 20px;
 }

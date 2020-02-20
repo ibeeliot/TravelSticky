@@ -29,19 +29,18 @@ const App = () => {
     zoom: 4
   });
 
+  // async function that get entries, using reactHook setLogEntries to update logEntries
+  const getEntries = async () => {
+    const logEntries = await listLogEntries();
+    setLogEntries(logEntries);
+  };
   // we'll use react hooks component useEffect only once
   // inside class so we can class syntax structure
   // this is a ASYNC process so we'll need to use await on it in order to catch the data approrpriately
   // this is a fetch coming from ./api.js
+  // this is calling getEntries when component loads
   useEffect(() => {
-    (async () => {
-      const logEntries = await listLogEntries();
-      // setLogEntries will update logEntries (we destructured it near the top) as we go throughough useEffect
-      // logEntries will then be a usable array
-      // if logic was inside the empty array, then setLogEntries will run everytime instead of just running once
-      setLogEntries(logEntries);
-      console.log("this is your logEntries", logEntries);
-    })();
+    getEntries();
   }, []);
 
   // to make it so that there is a form that appears on double-clicked location which allows users to add input
@@ -51,12 +50,12 @@ const App = () => {
     //   latitude: e.lngLat[0],
     //   longitude: e.lngLat[1]
     // });
-
     const [longitude, latitude] = e.lngLat;
     setAddEntryLocation({
       longitude,
       latitude
     });
+    e.preventDefault();
   };
 
   // this is returning a REACT MAP GL component which contain the props given by App
@@ -74,9 +73,8 @@ const App = () => {
       onDblClick={showAddMarkerPopup}
     >
       {logEntries.map(entry => (
-        <div>
+        <div key={entry._id}>
           <Marker
-            key={entry._id}
             latitude={Number(entry.latitude)}
             longitude={Number(entry.longitude)}
 
@@ -123,6 +121,13 @@ const App = () => {
                 <p>
                   Visited On: {new Date(entry.visitDate).toLocaleDateString()}
                 </p>
+                {entry.image ? (
+                  <img
+                    src={entry.image}
+                    alt={entry.title}
+                    style={{ width: 200, height: 100 }}
+                  />
+                ) : null}
               </div>
             </Popup>
           ) : null}
@@ -172,7 +177,15 @@ const App = () => {
             onClose={() => setAddEntryLocation(null)}
           >
             <div className="popup">
-              <LogEntryForm />
+              <LogEntryForm
+                onClose={() => {
+                  // calls parent and sets location to null, which hides the form
+                  // then gets all entries available
+                  setAddEntryLocation(null);
+                  getEntries();
+                }}
+                location={addEntryLocation}
+              />
             </div>
           </Popup>
         </div>
