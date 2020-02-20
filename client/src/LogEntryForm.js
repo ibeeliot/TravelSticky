@@ -3,7 +3,7 @@ import React from "react";
 // this is the form component that will appear once users click on the pop-up
 const LogEntryForm = () => {
   return (
-    <form>
+    <form className="entry-form">
       <div>
         <label for="title">Title</label>
         <input name="title" />
@@ -21,8 +21,8 @@ const LogEntryForm = () => {
         <input name="image" />
       </div>
       <div>
-        <label for="visit">Visit Date</label>
-        <input name="image" />
+        <label for="visitDate">Visit Date</label>
+        <input name="visitDate" type="date" />
       </div>
     </form>
   );

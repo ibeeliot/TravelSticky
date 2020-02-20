@@ -9,11 +9,26 @@ body {
 }
 /*this needs fixing*/
 .popup {
-  font-size: 2rem !important;
-  transform: scale(2);
+  font-size: 2rem;
   max-width: 500px;
+  border-radius: 20px;
 }
 /*marker*/
 .marker {
   transform: translate(-50%, -100%);
+}
+
+.mapboxgl-popup {
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.6);
+}
+
+.entry-form label,
+.entry-form input,
+.entry-form textarea {
+  margin: 0.5rem 0;
+  display: flex;
+  width: 100%;
+  font-size: 2rem;
+  border-radius: 20px;
 }

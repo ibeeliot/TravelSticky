@@ -3,6 +3,7 @@
 // useState from React is like setState and
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import "./index.css";
 
 // importing listLogEntries function we created
 import { listLogEntries } from "./API";
@@ -110,7 +111,7 @@ const App = () => {
             <Popup
               latitude={Number(entry.latitude)}
               longitude={Number(entry.longitude)}
-              anchor="bottom"
+              anchor="top"
               closeButton={true}
               closeOnClick={true}
               dynamicPosition={true}
@@ -164,7 +165,7 @@ const App = () => {
           <Popup
             latitude={Number(addEntryLocation.latitude)}
             longitude={Number(addEntryLocation.longitude)}
-            anchor="bottom"
+            anchor="top"
             closeButton={true}
             closeOnClick={true}
             dynamicPosition={true}
