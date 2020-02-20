@@ -7,18 +7,13 @@ body {
   width: 100vw;
   overflow: hidden;
 }
-
+/*this needs fixing*/
+.popup {
+  font-size: 2rem !important;
+  transform: scale(2);
+  max-width: 500px;
+}
 /*marker*/
 .marker {
   transform: translate(-50%, -100%);
-}
-
-.popup {
-  max-width: 300px;
-  transform: translate(-50%, -100%);
-}
-
-/*this needs fixing*/
-.mapboxgl-popup {
-  transform: translate(-46%, 23%) translate(1034.54px, 399.638px);
 }

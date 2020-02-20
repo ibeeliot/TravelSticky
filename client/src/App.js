@@ -7,6 +7,9 @@ import ReactMapGL, { Marker, Popup } from "react-map-gl";
 // importing listLogEntries function we created
 import { listLogEntries } from "./API";
 
+// importing LogEntry Form component from react
+import LogEntryForm from "./LogEntryForm";
+
 // this is a REACTMAP component. Look to react map gl component documentations
 // the parameters are from the components
 const App = () => {
@@ -14,12 +17,13 @@ const App = () => {
   // react Hook just has two components, a property and a function that sets that property's state
   const [logEntries, setLogEntries] = useState([]);
   const [showPopup, setShowPopup] = useState({});
+  const [addEntryLocation, setAddEntryLocation] = useState(null);
   const [viewport, setViewport] = useState({
     // this state essentially helps render the "props" to be used later
     width: "100vw",
     height: "100vh",
-    latitude: 39.8282,
-    longitude: -98.5795,
+    latitude: 26.0198,
+    longitude: 32.2778,
     // zoom level => higher number equal closer zoom
     zoom: 4
   });
@@ -38,6 +42,22 @@ const App = () => {
       console.log("this is your logEntries", logEntries);
     })();
   }, []);
+
+  // to make it so that there is a form that appears on double-clicked location which allows users to add input
+  // destructure variable latitude and longtitude from e aka event
+  const showAddMarkerPopup = e => {
+    // setAddEntryLocation({
+    //   latitude: e.lngLat[0],
+    //   longitude: e.lngLat[1]
+    // });
+
+    const [longitude, latitude] = e.lngLat;
+    setAddEntryLocation({
+      longitude,
+      latitude
+    });
+  };
+
   // this is returning a REACT MAP GL component which contain the props given by App
   // mapStyle is a property linked to ReactMapGL
   // when returning the body of the react component, be sure to include the entry(whatever you it read as input)
@@ -50,6 +70,7 @@ const App = () => {
       mapStyle="mapbox://styles/ibeeliot/ck6txraky1w5p1ioyu648l89x"
       onViewportChange={setViewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+      onDblClick={showAddMarkerPopup}
     >
       {logEntries.map(entry => (
         <div>
@@ -89,21 +110,72 @@ const App = () => {
             <Popup
               latitude={Number(entry.latitude)}
               longitude={Number(entry.longitude)}
+              anchor="bottom"
               closeButton={true}
               closeOnClick={true}
+              dynamicPosition={true}
               onClose={() => setShowPopup({ ...showPopup, [entry._id]: false })}
-              anchor="top"
             >
               <div className="popup">
-                <h3>
-                  {entry.title}
-                  <p>{entry.comments}</p>
-                </h3>
+                <h3>{entry.title}</h3>
+                <p>{entry.comments}</p>
+                <p>
+                  Visited On: {new Date(entry.visitDate).toLocaleDateString()}
+                </p>
               </div>
             </Popup>
           ) : null}
         </div>
       ))}
+      {addEntryLocation ? (
+        <div>
+          <Marker
+            key={addEntryLocation._id}
+            latitude={Number(addEntryLocation.latitude)}
+            longitude={Number(addEntryLocation.longitude)}
+
+            // offsetLeft={-12}
+            // offsetTop={-24}
+          >
+            <svg
+              className="yellowMarker"
+              viewBox="0 0 24 24"
+              style={{
+                width: `${8 * viewport.zoom}`,
+                height: `${8 * viewport.zoom}`
+              }}
+              stroke="#00FF00"
+              strokeWidth="2.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              onClick={() =>
+                // this will turn ALL showPopup instances (with their addEntryLocation IDs) all to true
+                setShowPopup({
+                  ...showPopup,
+                  [addEntryLocation._id]: true
+                })
+              }
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </Marker>
+          <Popup
+            latitude={Number(addEntryLocation.latitude)}
+            longitude={Number(addEntryLocation.longitude)}
+            anchor="bottom"
+            closeButton={true}
+            closeOnClick={true}
+            dynamicPosition={true}
+            onClose={() => setAddEntryLocation(null)}
+          >
+            <div className="popup">
+              <LogEntryForm />
+            </div>
+          </Popup>
+        </div>
+      ) : null}
     </ReactMapGL>
   );
 };
