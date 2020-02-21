@@ -1,0 +1,11 @@
+Array of images:
+Hollywood Sign: https://bit.ly/2vPKMqX
+London Eye: https://bit.ly/2SLKB9l
+Empire State Building: https://bit.ly/32aLsU0
+Codesmith: https://bit.ly/2VbtrDl
+White House: https://bit.ly/2PbpACq
+Grand Canyon: https://bit.ly/37LFaeG
+
+
+Biggest Challenge:
+Understanding how React Components are able to connect to express
