@@ -18,28 +18,31 @@ const LogEntryForm = ({ location, onClose }) => {
       console.log("This is the thing you just created, booiii", "\n", created);
       onClose();
     } catch (error) {
-      setError(error.message);
+      console.log("error from onSubmit in Log Entries");
       //if error, then set loading to false
       setLoading(false);
+      return setError(error.message);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="entry-form">
       {error ? <h3 className="error">{error}</h3> : null}
+      <label htmlFor="apiKey">API KEY</label>
+      <input type="password" name="apiKey" required ref={register} />
       <label htmlFor="title">Title</label>
-      <input name="title" required ref={register} />
+      <input type="string" name="title" required ref={register} />
       <label htmlFor="comment">Comments</label>
       <textarea name="comments" rows={3} ref={register}></textarea>
       <label htmlFor="description">Description</label>
       <textarea name="description" rows={3} ref={register}></textarea>
       <label htmlFor="image">Image</label>
-      <input name="image" ref={register} />
+      <input type="string" name="image" ref={register} />
       <label htmlFor="visitDate">Visit Date</label>
       <input name="visitDate" type="date" ref={register} />
+      <label htmlFor="recommend">Recommend?</label>
+      <input name="recommend" type="boolean" ref={register} />
       {/* ratings  */}
-      <label htmlFor="rating">Rate This</label>
-      <input name="rating" type=""></input>
       <button disabled={loading}>
         {loading ? "Loading...." : "Create Entry"}
       </button>

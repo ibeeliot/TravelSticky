@@ -11,12 +11,27 @@ export async function listLogEntries() {
 
 // this will create POSTS to our logs of entry via the same /api/logs route but this time will create a body and the method will be post
 export async function createLogEntry(entry) {
+  const apiKey = entry.apiKey;
+  //deletes this key entry because you don't want the body of the request to have the API key
+  delete entry.apiKey;
   const response = await fetch(`${API_URL}/api/logs`, {
     method: "POST",
     headers: {
-      "content-type": "application/json"
+      "content-type": "application/json",
+      "X-API-KEY": apiKey
     },
     body: JSON.stringify(entry)
   });
-  return response.json();
+  const json = await response.json();
+  if (response.ok) {
+    return json;
+  }
+
+  // AXIOS error
+  // this is the syntax for throwing an error
+  else {
+    const error = new Error(json.message);
+    error.response = json;
+    throw error;
+  }
 }

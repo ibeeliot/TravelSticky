@@ -30,6 +30,7 @@ router.post("/", async (req, res, next) => {
     if (req.get("X-API-KEY") !== API_KEY) {
       // if there is a HEADER that has this API key in the header, then we can go ahead and allow it to pass as a user
       // OTHERWISE, we can reject using the throw syntax
+      res.status(401);
       throw new Error("UnAuthorized");
     }
     // pass the req.body into the new Schema
@@ -43,7 +44,7 @@ router.post("/", async (req, res, next) => {
     if (error.name === "ValidationError") {
       res.status(422);
     }
-    return next(error);
+    next(error);
   }
 });
 

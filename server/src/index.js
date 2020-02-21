@@ -39,7 +39,7 @@ const app = express();
 const logs = require("./api/logs.js");
 
 // connects MongoDB to the local environment
-mongoose.connect("mongodb://localhost/travel-log", {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
